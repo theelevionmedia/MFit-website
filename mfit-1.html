@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M FIT — Thrissur's Premier Gym</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #080807;
+    --iron:    #0f0f0d;
+    --steel:   #181814;
+    --plate:   #222218;
+    --gold:    #C9962A;
+    --gold-lt: #E8C060;
+    --gold-dk: #8B6510;
+    --white:   #F5F0E8;
+    --muted:   #7a7668;
+    --grad: linear-gradient(135deg, #C9962A 0%, #F0D070 50%, #B8841C 100%);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 4rem;
+    background: linear-gradient(to bottom, rgba(8,8,7,0.97) 70%, transparent);
+  }
+  .nav-logo img { height: 52px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-lt); }
+  .nav-wa {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--grad); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    text-decoration: none; padding: 0.65rem 1.4rem; transition: opacity 0.2s;
+  }
+  .nav-wa:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    height: 100vh; min-height: 680px;
+    position: relative; display: flex; align-items: flex-end;
+    padding: 0 4rem 6rem; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 70px, rgba(201,150,42,0.04) 70px, rgba(201,150,42,0.04) 71px),
+      repeating-linear-gradient(90deg, transparent, transparent 70px, rgba(201,150,42,0.04) 70px, rgba(201,150,42,0.04) 71px);
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute; top: -10%; left: -5%; width: 60%; height: 70%;
+    background: radial-gradient(ellipse, rgba(201,150,42,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-ring {
+    position: absolute; top: 12%; right: 5%;
+    width: 380px; height: 380px;
+    border: 1px solid rgba(201,150,42,0.12); border-radius: 50%;
+    animation: spin 25s linear infinite;
+  }
+  .hero-ring::before {
+    content: ''; position: absolute; inset: 30px;
+    border: 1px solid rgba(201,150,42,0.06); border-radius: 50%;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .hero-logo-bg {
+    position: absolute; top: 50%; right: 4%;
+    transform: translateY(-52%); height: 55vh;
+    opacity: 0.06; pointer-events: none; user-select: none;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 760px; }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.45em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before { content: ''; width: 36px; height: 1px; background: var(--gold); }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5.5rem, 13vw, 11.5rem);
+    line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 2rem;
+  }
+  .hero-title .outline {
+    display: block;
+    -webkit-text-stroke: 1px rgba(201,150,42,0.25); color: transparent;
+  }
+  .hero-title .solid { display: block; color: var(--white); }
+  .hero-title .gold-text {
+    display: block;
+    background: var(--grad);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    font-size: 0.95rem; font-weight: 300; color: var(--muted);
+    max-width: 380px; line-height: 1.75; margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--grad); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; padding: 0.95rem 2rem; transition: opacity 0.2s;
+  }
+  .btn-gold:hover { opacity: 0.85; }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    border: 1px solid rgba(201,150,42,0.3); color: var(--gold-lt);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; padding: 0.95rem 2rem; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* STATS */
+  .stats-bar {
+    display: flex; background: var(--steel);
+    border-top: 1px solid rgba(201,150,42,0.12);
+    border-bottom: 1px solid rgba(201,150,42,0.12);
+  }
+  .stat-item {
+    flex: 1; padding: 2rem 1.5rem; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.04);
+    position: relative; overflow: hidden;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--grad); transform: scaleX(0); transition: transform 0.35s;
+  }
+  .stat-item:hover::after { transform: scaleX(1); }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; line-height: 1;
+    background: var(--grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--muted); margin-top: 0.3rem;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.42em; text-transform: uppercase;
+    color: var(--gold); display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.3rem;
+  }
+  .section-label::after { content: ''; flex: 1; max-width: 50px; height: 1px; background: var(--gold); }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.8rem); line-height: 1;
+  }
+
+  /* ABOUT */
+  .about {
+    padding: 8rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    max-width: 1400px; margin: 0 auto;
+  }
+  .about-text { color: var(--muted); line-height: 1.82; font-size: 0.93rem; font-weight: 300; margin-bottom: 1.4rem; }
+  .about-visual { position: relative; }
+  .about-frame {
+    width: 100%; aspect-ratio: 4/5; background: var(--steel);
+    border: 1px solid rgba(201,150,42,0.1);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .about-frame img { width: 55%; opacity: 0.7; filter: drop-shadow(0 0 40px rgba(201,150,42,0.15)); }
+  .about-frame::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(201,150,42,0.05) 0%, transparent 70%);
+  }
+  .about-corner-tl, .about-corner-br { position: absolute; width: 60px; height: 60px; }
+  .about-corner-tl { top: -8px; left: -8px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+  .about-corner-br { bottom: -8px; right: -8px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+
+  /* FACILITIES */
+  .facilities {
+    padding: 6rem 4rem; background: var(--iron);
+    border-top: 1px solid rgba(201,150,42,0.07);
+    border-bottom: 1px solid rgba(201,150,42,0.07);
+  }
+  .facilities-header { max-width: 1400px; margin: 0 auto 4rem; }
+  .facilities-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: rgba(201,150,42,0.08);
+    max-width: 1400px; margin: 0 auto;
+  }
+  .facility-card {
+    background: var(--iron); padding: 2.5rem;
+    position: relative; overflow: hidden; transition: background 0.3s;
+  }
+  .facility-card:hover { background: var(--steel); }
+  .facility-icon-wrap {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,150,42,0.25);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 1.3rem;
+  }
+  .facility-icon-wrap svg {
+    width: 20px; height: 20px; stroke: var(--gold); fill: none;
+    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .facility-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .facility-desc { font-size: 0.83rem; color: var(--muted); font-weight: 300; line-height: 1.65; }
+  .facility-num {
+    position: absolute; bottom: 0.8rem; right: 1.2rem;
+    font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem;
+    color: rgba(201,150,42,0.05); line-height: 1; user-select: none;
+  }
+
+  /* BRANCHES */
+  .branches { padding: 8rem 4rem; max-width: 1400px; margin: 0 auto; }
+  .branches-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    margin-top: 4rem; background: rgba(201,150,42,0.15);
+  }
+  .branch-card {
+    background: var(--black); padding: 3.5rem;
+    position: relative; overflow: hidden;
+    border: 1px solid rgba(201,150,42,0.07); transition: border-color 0.3s;
+  }
+  .branch-card:hover { border-color: rgba(201,150,42,0.3); }
+  .branch-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--grad);
+  }
+  .branch-number {
+    font-family: 'Bebas Neue', sans-serif; font-size: 8rem;
+    color: rgba(201,150,42,0.04); position: absolute; top: 0.5rem; right: 1.5rem;
+    line-height: 1; user-select: none;
+  }
+  .branch-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.42em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .branch-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1; margin-bottom: 0.3rem; }
+  .branch-location {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 2rem;
+  }
+  .branch-divider { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 2rem; }
+  .branch-details { display: flex; flex-direction: column; gap: 1.1rem; }
+  .branch-detail { display: flex; align-items: flex-start; gap: 0.9rem; }
+  .branch-detail svg {
+    width: 15px; height: 15px; stroke: var(--gold); fill: none;
+    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .branch-detail-text { font-size: 0.87rem; color: var(--muted); font-weight: 300; line-height: 1.55; }
+  .branch-wa {
+    display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 2.5rem;
+    background: var(--grad); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; padding: 0.8rem 1.5rem; transition: opacity 0.2s;
+  }
+  .branch-wa:hover { opacity: 0.85; }
+  .branch-wa svg { width: 16px; height: 16px; fill: var(--black); flex-shrink: 0; }
+
+  /* TRAINERS */
+  .trainers {
+    padding: 6rem 4rem; background: var(--iron);
+    border-top: 1px solid rgba(201,150,42,0.07);
+  }
+  .trainers-inner { max-width: 1400px; margin: 0 auto; }
+  .trainers-header { margin-bottom: 4rem; }
+  .trainers-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: rgba(201,150,42,0.08);
+  }
+  .trainer-card { background: var(--iron); }
+  .trainer-photo {
+    aspect-ratio: 3/4; background: var(--steel);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .trainer-photo svg { width: 48px; height: 48px; stroke: rgba(201,150,42,0.15); fill: none; stroke-width: 1; }
+  .trainer-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,9,0.9) 0%, transparent 50%);
+  }
+  .trainer-info { padding: 1.4rem; }
+  .trainer-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; margin-bottom: 0.2rem;
+  }
+  .trainer-role { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; }
+
+  /* BOOK / CONTACT */
+  .book-section {
+    padding: 8rem 4rem; max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .book-title { margin-bottom: 1.2rem; }
+  .book-text { color: var(--muted); font-size: 0.93rem; font-weight: 300; line-height: 1.8; margin-bottom: 2.5rem; }
+  .book-options { display: flex; flex-direction: column; gap: 1rem; }
+  .book-option {
+    display: flex; align-items: center; gap: 1.2rem; padding: 1.3rem 1.5rem;
+    border: 1px solid rgba(201,150,42,0.12); background: var(--steel);
+    text-decoration: none; transition: border-color 0.25s, background 0.25s;
+  }
+  .book-option:hover { border-color: rgba(201,150,42,0.4); background: var(--plate); }
+  .book-option-icon {
+    width: 40px; height: 40px; border: 1px solid rgba(201,150,42,0.2);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .book-option-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.15rem;
+  }
+  .book-option-value { font-size: 0.95rem; font-weight: 400; color: var(--white); }
+  .book-visual { display: flex; align-items: center; justify-content: center; }
+  .book-circle {
+    width: 380px; height: 380px;
+    border: 1px solid rgba(201,150,42,0.1); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; position: relative;
+  }
+  .book-circle::before {
+    content: ''; position: absolute; inset: 20px;
+    border: 1px solid rgba(201,150,42,0.06); border-radius: 50%;
+  }
+  .book-circle img { width: 55%; opacity: 0.65; filter: drop-shadow(0 0 30px rgba(201,150,42,0.2)); }
+  .book-circle-label {
+    position: absolute; bottom: -1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
+  }
+
+  /* CTA BAND */
+  .cta-band {
+    position: relative; overflow: hidden; padding: 6rem 4rem; text-align: center;
+    background: var(--steel);
+    border-top: 1px solid rgba(201,150,42,0.12); border-bottom: 1px solid rgba(201,150,42,0.12);
+  }
+  .cta-band::before {
+    content: 'M FIT'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif; font-size: 18rem;
+    color: rgba(201,150,42,0.03); white-space: nowrap; pointer-events: none; user-select: none;
+  }
+  .cta-band-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; margin-bottom: 1rem; position: relative;
+  }
+  .cta-band-sub {
+    font-size: 0.93rem; font-weight: 300; color: var(--muted);
+    max-width: 380px; margin: 0 auto 2.5rem; line-height: 1.75; position: relative;
+  }
+  .cta-band-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--grad); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase;
+    text-decoration: none; padding: 1rem 2.5rem; transition: opacity 0.2s; position: relative;
+  }
+  .cta-band-btn:hover { opacity: 0.85; }
+  .cta-band-btn svg { width: 18px; height: 18px; fill: var(--black); }
+
+  /* FOOTER */
+  footer { background: var(--iron); border-top: 1px solid rgba(201,150,42,0.08); padding: 4rem 4rem 2.5rem; }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 4rem;
+    padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.04); margin-bottom: 2rem;
+  }
+  .footer-logo img { height: 56px; width: auto; margin-bottom: 1.2rem; display: block; }
+  .footer-tagline { font-size: 0.83rem; font-weight: 300; color: var(--muted); line-height: 1.75; max-width: 220px; }
+  .footer-col-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.38em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.4rem;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .footer-links a { font-size: 0.88rem; font-weight: 300; color: rgba(245,240,232,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-lt); }
+  .footer-contact { display: flex; flex-direction: column; gap: 0.8rem; }
+  .footer-contact-item { display: flex; align-items: center; gap: 0.7rem; font-size: 0.87rem; font-weight: 300; color: rgba(245,240,232,0.45); }
+  .footer-contact-item svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  .footer-wa-link { display: flex; align-items: center; gap: 0.6rem; font-size: 0.87rem; font-weight: 300; color: var(--gold-lt); text-decoration: none; transition: color 0.2s; }
+  .footer-wa-link:hover { color: var(--gold); }
+  .footer-wa-link svg { width: 15px; height: 15px; fill: var(--gold-lt); flex-shrink: 0; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.18); font-weight: 300; letter-spacing: 0.04em; }
+  .footer-copy span { color: var(--gold); }
+
+  /* ANIMATIONS */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 1.8rem 4rem; }
+    .hero-ring { display: none; }
+    .about, .book-section { grid-template-columns: 1fr; padding: 4rem 1.8rem; gap: 3rem; }
+    .about-visual { order: -1; }
+    .facilities { padding: 4rem 1.8rem; }
+    .facilities-grid { grid-template-columns: 1fr; }
+    .branches { padding: 4rem 1.8rem; }
+    .branches-grid { grid-template-columns: 1fr; }
+    .trainers { padding: 4rem 1.8rem; }
+    .trainers-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-bar { flex-wrap: wrap; }
+    .stat-item { flex: 1 1 50%; }
+    .cta-band { padding: 4rem 1.8rem; }
+    footer { padding: 3rem 1.8rem 2rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .book-visual { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><img src="https://external-content.duckduckgo.com/iu/?u=https://i.imgur.com/GscT2qC.png" alt="M Fit"></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#facilities">Facilities</a></li>
+    <li><a href="#branches">Branches</a></li>
+    <li><a href="#trainers">Trainers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-wa" href="https://wa.me/917012425758?text=Hi%20M%20Fit!%20I%20want%20to%20book%20a%20session." target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Book a Session
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-ring"></div>
+  <img class="hero-logo-bg" src="https://external-content.duckduckgo.com/iu/?u=https://i.imgur.com/GscT2qC.png" alt="">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. Thrissur, Kerala</p>
+    <h1 class="hero-title">
+      <span class="outline">FORGE</span>
+      <span class="solid">YOUR</span>
+      <span class="gold-text">BEST</span>
+    </h1>
+    <p class="hero-sub">Two branches across Thrissur. Professional trainers. Equipment built for results. M Fit is where transformation begins.</p>
+    <div class="hero-actions">
+      <a class="btn-gold" href="https://wa.me/917012425758?text=Hi%20M%20Fit!%20I%20want%20to%20book%20a%20session." target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Book a Session
+      </a>
+      <a class="btn-ghost" href="#branches">Our Branches</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">2+</div><div class="stat-label">Branches</div></div>
+  <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Active Members</div></div>
+  <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Expert Trainers</div></div>
+  <div class="stat-item"><div class="stat-num">6 AM</div><div class="stat-label">Opens Daily</div></div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="fade-up">
+    <div class="section-label">Who We Are</div>
+    <h2 class="section-title" style="margin-bottom:1.4rem;">BUILT FOR<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">THRISSUR</span></h2>
+    <p class="about-text">M Fit isn't just a gym  it's a commitment to the community. Born in Thrissur, we've built spaces where serious athletes and first-timers walk the same floor, held to the same standard of excellence.</p>
+    <p class="about-text">With branches in Ollur and Anakkallu, world-class training is never far from home. Every session is an investment. Every rep counts.</p>
+    <a class="btn-gold" href="https://wa.me/917012425758?text=Hi%20M%20Fit!%20I%20want%20to%20know%20more." target="_blank" style="margin-top:0.5rem;">Get in Touch</a>
+  </div>
+  <div class="about-visual fade-up">
+    <div class="about-frame"><img src="/mnt/user-data/uploads/1000198573.png" alt="M Fit Logo"></div>
+    <div class="about-corner-tl"></div>
+    <div class="about-corner-br"></div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="facilities" id="facilities">
+  <div class="facilities-header fade-up">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">WORLD-CLASS<br>FACILITIES</h2>
+  </div>
+  <div class="facilities-grid">
+    <div class="facility-card fade-up">
+      <div class="facility-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M6 4v16M18 4v16M3 8h4M17 8h4M3 16h4M17 16h4"/></svg>
+      </div>
+      <div class="facility-name">Free Weights Zone</div>
+      <div class="facility-desc">Full range of dumbbells, barbells, and Olympic plates for compound and isolation work.</div>
+      <div class="facility-num">01</div>
+    </div>
+    <div class="facility-card fade-up">
+      <div class="facility-icon-wrap">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+      </div>
+      <div class="facility-name">Resistance Machines</div>
+      <div class="facility-desc">Commercial-grade cable and resistance machines for every major muscle group.</div>
+      <div class="facility-num">02</div>
+    </div>
+    <div class="facility-card fade-up">
+      <div class="facility-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="facility-name">Cardio Deck</div>
+      <div class="facility-desc">Treadmills, bikes, rowing machines, and ellipticals for endurance and conditioning.</div>
+      <div class="facility-num">03</div>
+    </div>
+    <div class="facility-card fade-up">
+      <div class="facility-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="facility-name">Functional Training</div>
+      <div class="facility-desc">Battle ropes, kettlebells, sleds, and plyometric platforms for athletic performance.</div>
+      <div class="facility-num">04</div>
+    </div>
+    <div class="facility-card fade-up">
+      <div class="facility-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>
+      </div>
+      <div class="facility-name">Yoga & Stretch Studio</div>
+      <div class="facility-desc">Dedicated space for flexibility, yoga classes, and active recovery sessions.</div>
+      <div class="facility-num">05</div>
+    </div>
+    <div class="facility-card fade-up">
+      <div class="facility-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="facility-name">Personal Training</div>
+      <div class="facility-desc">One-on-one sessions with certified trainers tailored to your body and goals.</div>
+      <div class="facility-num">06</div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANCHES -->
+<section class="branches" id="branches">
+  <div class="fade-up">
+    <div class="section-label">Our Locations</div>
+    <h2 class="section-title">TWO BRANCHES.<br>ONE STANDARD.</h2>
+  </div>
+  <div class="branches-grid fade-up">
+    <div class="branch-card">
+      <div class="branch-number">01</div>
+      <div class="branch-tag">Branch — 01</div>
+      <div class="branch-name">M FIT OLLUR</div>
+      <div class="branch-location">Ollur, Thrissur</div>
+      <div class="branch-divider"></div>
+      <div class="branch-details">
+        <div class="branch-detail">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="branch-detail-text">Ollur, Thrissur District, Kerala</div>
+        </div>
+        <div class="branch-detail">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div class="branch-detail-text">Mon – Sat: 6:00 AM – 10:00 PM<br>Sunday: 7:00 AM – 8:00 PM</div>
+        </div>
+        <div class="branch-detail">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <div class="branch-detail-text">+91 70124 25758</div>
+        </div>
+      </div>
+      <a class="branch-wa" href="https://wa.me/917012425758?text=Hi!%20I%27m%20interested%20in%20M%20Fit%20Ollur." target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Book at Ollur
+      </a>
+    </div>
+    <div class="branch-card">
+      <div class="branch-number">02</div>
+      <div class="branch-tag">Branch — 02</div>
+      <div class="branch-name">M FIT ANAKALLU</div>
+      <div class="branch-location">Anakkallu, Thrissur</div>
+      <div class="branch-divider"></div>
+      <div class="branch-details">
+        <div class="branch-detail">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="branch-detail-text">Anakkallu, Thrissur District, Kerala</div>
+        </div>
+        <div class="branch-detail">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div class="branch-detail-text">Mon – Sat: 6:00 AM – 10:00 PM<br>Sunday: 7:00 AM – 8:00 PM</div>
+        </div>
+        <div class="branch-detail">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <div class="branch-detail-text">+91 70124 25758</div>
+        </div>
+      </div>
+      <a class="branch-wa" href="https://wa.me/917012425758?text=Hi!%20I%27m%20interested%20in%20M%20Fit%20Anakkallu." target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Book at Anakkallu
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINERS -->
+<section class="trainers" id="trainers">
+  <div class="trainers-inner">
+    <div class="trainers-header fade-up">
+      <div class="section-label">The Team</div>
+      <h2 class="section-title">EXPERT<br>TRAINERS</h2>
+    </div>
+    <div class="trainers-grid fade-up">
+      <div class="trainer-card">
+        <div class="trainer-photo"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="trainer-info"><div class="trainer-name">Trainer Name</div><div class="trainer-role">Strength & Conditioning</div></div>
+      </div>
+      <div class="trainer-card">
+        <div class="trainer-photo"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="trainer-info"><div class="trainer-name">Trainer Name</div><div class="trainer-role">Cardio & HIIT</div></div>
+      </div>
+      <div class="trainer-card">
+        <div class="trainer-photo"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="trainer-info"><div class="trainer-name">Trainer Name</div><div class="trainer-role">Yoga & Flexibility</div></div>
+      </div>
+      <div class="trainer-card">
+        <div class="trainer-photo"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="trainer-info"><div class="trainer-name">Trainer Name</div><div class="trainer-role">Personal Training</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / BOOK -->
+<section class="book-section" id="contact">
+  <div class="fade-up">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title book-title">BOOK YOUR<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">FREE SESSION</span></h2>
+    <p class="book-text">Ready to start? Reach us on WhatsApp, give us a call, or walk into either branch. Your first session is on us — no commitment needed.</p>
+    <div class="book-options">
+      <a class="book-option" href="https://wa.me/917012425758?text=Hi%20M%20Fit!%20I%27d%20like%20to%20book%20a%20free%20session." target="_blank">
+        <div class="book-option-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--gold)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div><div class="book-option-label">WhatsApp</div><div class="book-option-value">+91 70124 25758</div></div>
+      </a>
+      <a class="book-option" href="tel:+917012425758">
+        <div class="book-option-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div><div class="book-option-label">Call Us</div><div class="book-option-value">+91 70124 25758</div></div>
+      </a>
+      <a class="book-option" href="#branches">
+        <div class="book-option-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div><div class="book-option-label">Walk In</div><div class="book-option-value">Ollur or Anakkallu, Thrissur</div></div>
+      </a>
+    </div>
+  </div>
+  <div class="book-visual fade-up">
+    <div class="book-circle">
+      <img src="/mnt/user-data/uploads/1000198573.png" alt="M Fit">
+      <div class="book-circle-label">Thrissur · Kerala</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2 class="cta-band-title">YOUR FIRST<br>SESSION IS FREE</h2>
+  <p class="cta-band-sub">Walk in to either branch or tap below — our team will get you started the same day.</p>
+  <a class="cta-band-btn" href="https://wa.me/917012425758?text=Hi%20M%20Fit!%20I%27d%20like%20to%20claim%20my%20free%20session." target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Message Us on WhatsApp
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo"><img src="/mnt/user-data/uploads/1000198573.png" alt="M Fit"></div>
+      <div class="footer-tagline">Two branches. One standard. Thrissur's home for serious training.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigate</div>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#facilities">Facilities</a></li>
+        <li><a href="#branches">Branches</a></li>
+        <li><a href="#trainers">Trainers</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Branches</div>
+      <ul class="footer-links">
+        <li><a href="#">Ollur, Thrissur</a></li>
+        <li><a href="#">Anakkallu, Thrissur</a></li>
+      </ul>
+      <div style="margin-top:1.5rem;">
+        <div class="footer-col-title">Hours</div>
+        <ul class="footer-links">
+          <li><a href="#">Mon–Sat: 6AM–10PM</a></li>
+          <li><a href="#">Sunday: 7AM–8PM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-contact">
+        <a class="footer-wa-link" href="https://wa.me/917012425758" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          +91 70124 25758
+        </a>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +91 70124 25758
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Thrissur, Kerala
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>M Fit</span> — Thrissur, Kerala</div>
+    <div class="footer-copy">Built for those who show up.</div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
